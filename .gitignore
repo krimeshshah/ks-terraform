@@ -15,9 +15,9 @@ override.tf.json
 *_override.tf
 *_override.tf.json
 
-# Exclude sensitive variable files
-*.tfvars
-*.tfvars.json
+# # Exclude sensitive variable files
+# *.tfvars
+# *.tfvars.json
 
 # Local files
 .terraformrc
