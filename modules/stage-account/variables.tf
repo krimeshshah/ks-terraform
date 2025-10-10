@@ -31,7 +31,7 @@ variable "account_id" {
 
 variable "trusted_role_arns" {
   type    = list(string)
-  default = [ "arn:aws:iam::578003659821:root" ] ## Exp
+  default = ["arn:aws:iam::578003659821:root"] ## Exp
 }
 
 # Other

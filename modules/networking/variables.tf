@@ -64,7 +64,7 @@ variable "stage" {
 #   default = false
 # }
 
-# variable "create_sg" {
-#   type    = bool
-#   default = true
-# }
+variable "create_sg" {
+  type    = bool
+  default = true
+}

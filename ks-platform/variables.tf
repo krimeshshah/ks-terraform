@@ -63,6 +63,23 @@ variable "availability_zones" {
   default = ["us-east-1a", "us-east-1b"]
 }
 
+variable "asg_enabled" {
+  type = bool
+}
+
+# variable "vpc_id" {
+#     type = string
+# }
+
+variable "eks_enabled" {
+  type = bool
+}
+
+variable "eks_instance_types" {
+  type    = list(string)
+  default = ["t3.micro"]
+}
+
 # variable "environment" {
 #   type = string
 # }
@@ -90,4 +107,14 @@ variable "availability_zones" {
 variable "thanos_enabled" {
   type    = bool
   default = false
+}
+
+variable "loadbalancer_enabled" {
+  type    = bool
+  default = false
+}
+
+variable "create_sg" {
+  type    = bool
+  default = true
 }

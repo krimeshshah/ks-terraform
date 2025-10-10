@@ -5,7 +5,7 @@ resource "aws_iam_user" "thanos" {
 
 
 resource "aws_iam_access_key" "thanos" {
- user = aws_iam_user.thanos.name
+  user = aws_iam_user.thanos.name
 }
 
 
@@ -22,7 +22,7 @@ resource "aws_s3_bucket" "thanos" {
     Cluster = var.stage
     Name    = "Blob storage for for Thanos Prometheus storage"
   }
-    policy = <<POLICY
+  policy = <<POLICY
 {
   "Version": "2012-10-17",
   "Statement": [

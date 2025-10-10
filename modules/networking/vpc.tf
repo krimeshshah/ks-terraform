@@ -1,5 +1,5 @@
 module "vpc" {
-  source = "terraform-aws-modules/vpc/aws"
+  source  = "terraform-aws-modules/vpc/aws"
   version = "~> 5.0"
 
   name = "vpc-${var.stage}"
@@ -38,9 +38,9 @@ module "vpc" {
   enable_dns_support   = true
 
   # Gateways
-  enable_nat_gateway = true
+  enable_nat_gateway     = true
   one_nat_gateway_per_az = true
-  enable_vpn_gateway = false
+  enable_vpn_gateway     = false
 
 
   # VPC Flow Logs
@@ -49,7 +49,7 @@ module "vpc" {
   create_flow_log_cloudwatch_iam_role  = true
 
   tags = {
-    Terraform = "true"
+    Terraform   = "true"
     Environment = var.stage
   }
 }
