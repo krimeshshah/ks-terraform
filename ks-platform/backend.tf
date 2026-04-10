@@ -1,7 +1,8 @@
 terraform {
   backend "s3" {
-    bucket = "terranostra-ks"
-    key    = "terranostra-ks/terraform.tfstate"
-    region = "us-east-1"
+    bucket = "terraform-ks-backend-state"
+    key    = "terraform-state/ks-platform/terraform.tfstate"
+    region = "ap-south-2"
+    profile = "Terraform-Backend-mgmt"
   }
 }

@@ -1,8 +1,8 @@
 # General
-region = "us-east-1"
+region = "ap-south-2"
 
 # Account
-account_name = "uk-main"
+account_name = "ks3390"
 
 # Assumable Roles
 ## Using wildcards to specify the AWS Account arn

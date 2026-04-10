@@ -1,7 +1,7 @@
 
-provider_assume_role_arn = "arn:aws:iam::806153319059:role/terraform"
-region                   = "us-east-1"
-account_name             = "ks-dev"
+provider_assume_role_arn = "arn:aws:iam::209082373788:role/TerraformExecutionRole"
+region                   = "ap-southeast-2"
+account_name             = "dev1"
 
 stage = "dev"
 
@@ -14,9 +14,9 @@ stage = "dev"
 
 networking_enabled  = true
 create_sg           = true
-vpc_private_subnets = ["172.31.0.0/20", "172.31.16.0/20"]
-vpc_public_subnets  = ["172.31.48.0/20", "172.31.64.0/20"]
-vpc_cidr_block      = "172.31.0.0/16"
+vpc_private_subnets = ["10.0.0.64/26", "10.0.0.192/26"]
+vpc_public_subnets  = ["10.0.0.0/28", "10.0.0.16/28"]
+vpc_cidr_block      = "10.0.0.0/24"
 
 ## auto scaling group parameters
 asg_enabled = true

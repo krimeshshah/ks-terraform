@@ -7,9 +7,10 @@ terraform {
   }
 }
 provider "aws" {
+  profile = "Terraform-management"
   region = var.region
-  assume_role {
-    role_arn    = var.provider_assume_role_arn
-    external_id = "terraform"
-  }
+  # assume_role {
+  #   role_arn    = var.provider_assume_role_arn
+   # external_id = "terraform"
+  # }
 }
