@@ -4,7 +4,7 @@ availability_zones = [
   "ap-south-2a",
   "ap-south-2b",
 ]
-environment = "development" 
+environment = "development"
 
 # Account
 account_name = "dev1"

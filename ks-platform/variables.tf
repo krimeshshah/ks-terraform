@@ -10,7 +10,7 @@ variable "provider_assume_role_arn" {
 
 variable "region" {
   type        = string
-  default     = "us-east-1"
+  default     = "ap-south-2"
   description = "description"
 }
 
@@ -60,11 +60,12 @@ variable "vpc_intra_subnets" {
 
 variable "availability_zones" {
   type    = list(string)
-  default = ["us-east-1a", "us-east-1b"]
+  default = ["ap-south-2a", "ap-south-2b", "ap-south-2c"]
 }
 
 variable "asg_enabled" {
-  type = bool
+  type    = bool
+  default = false
 }
 
 # variable "vpc_id" {
@@ -80,30 +81,6 @@ variable "eks_instance_types" {
   default = ["t3.micro"]
 }
 
-# variable "environment" {
-#   type = string
-# }
-
-# # Security Groups
-# variable "gardener_cidr_blocks" {
-#   type = list(string)
-# }
-
-# variable "palo_alto_cidr_blocks" {
-#   type    = list(string)
-#   default = ["10.0.0.0/16"]
-# }
-
-# variable "legacy_names" {
-#   type    = bool
-#   default = false
-# }
-
-# variable "create_sg" {
-#   type    = bool
-#   default = true
-# }
-
 variable "thanos_enabled" {
   type    = bool
   default = false
@@ -118,3 +95,25 @@ variable "create_sg" {
   type    = bool
   default = true
 }
+
+variable "create_rds" {
+  type    = bool
+  default = false
+}
+
+variable "db_prefix" {
+  type    = string
+  default = "fastapi"
+}
+
+variable "namespace_service_accounts" {
+  type = list(string)
+}
+
+# variable "namespace" {
+#     type = string
+# }
+
+# variable "service_account" {
+#     type = string
+# }

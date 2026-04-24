@@ -43,15 +43,24 @@ module "alb" {
         target_group_key = "ks-instance"
       }
     }
+    # ks-https = {
+    #   port            = 443
+    #   protocol        = "HTTPS"
+
+    #   forward = {
+    #     target_group_key = "ks-instance"
+    #   }
+    # }
   }
 
   target_groups = {
     ks-instance = {
       name_prefix       = "ks"
-      protocol  = "HTTP"
-      port      = 8000
+      protocol          = "HTTP"
+      port              = 8080
       target_type       = "instance"
-      create_attachment = false
+      create_attachment = false ### This option shoould only be set to true if we us static instance so that we can provide target instane id. 
+      # With asg we dont know the targetid (i.e instance id) hence if we are using ASG then keep it false.
     }
   }
 

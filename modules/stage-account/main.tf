@@ -9,8 +9,8 @@ terraform {
 provider "aws" {
   #profile = "Terraform-management"
   profile = "Terraform-Backend-mgmt"
-  region = var.region
+  region  = var.region
   assume_role {
-    role_arn    = var.provider_assume_role_arn
+    role_arn = var.provider_assume_role_arn
   }
 }

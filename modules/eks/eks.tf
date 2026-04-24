@@ -1,27 +1,51 @@
+# data "aws_ssm_parameter" "eks__optimized_ami" {
+#    name = "/aws/service/eks/optimized-ami/1.33/amazon-linux-2023/x86_64/standard/recommended/image_id"
+# }
+
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
-  version = "~> 20.0"
+  version = "~> 21.0"
 
-  cluster_name    = "ks-${var.stage}"
-  cluster_version = "1.33"
+  name               = "eks-${var.stage}"
+  kubernetes_version = "1.33"
 
-  cluster_endpoint_public_access = true
+  endpoint_public_access = true
+  # Cluster access entry
+  # To add the current caller identity as an administrator
+  enable_cluster_creator_admin_permissions = true
 
-  cluster_addons = {
-    coredns = {
-      most_recent = true
+
+  access_entries = {
+    # One access entry with a policy associated
+    dev-sso-cluster-admin = {
+      principal_arn = "arn:aws:iam::209082373788:role/aws-reserved/sso.amazonaws.com/ap-south-2/AWSReservedSSO_AdministratorAccess_831c0b0dd15e4a48"
+
+      policy_associations = {
+        dev-sso-admin = {
+          policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
+          access_scope = {
+            type = "cluster"
+          }
+        }
+      }
     }
-    kube-proxy = {
-      most_recent = true
+  }
+
+  addons = {
+    coredns = {}
+    eks-pod-identity-agent = {
+      before_compute = true
     }
+    kube-proxy = {}
     vpc-cni = {
-      most_recent = true
+      before_compute = true
     }
   }
 
   vpc_id                   = var.eks_vpc_id
   subnet_ids               = var.eks_subnet_ids
   control_plane_subnet_ids = var.eks_cp_subnet_ids
+  enable_irsa              = true
 
   # EKS Managed Node Group(s)
   # eks_managed_node_group_defaults = {
@@ -30,36 +54,16 @@ module "eks" {
 
   eks_managed_node_groups = {
     "ks-eks-${var.stage}" = {
-      min_size     = 1
+      ami_type     = "AL2023_x86_64_STANDARD"
+      min_size     = 3
       max_size     = 5
-      desired_size = 1
+      desired_size = 3
 
       instance_types = var.eks_instance_types
       capacity_type  = "SPOT"
     }
   }
 
-  # Cluster access entry
-  # To add the current caller identity as an administrator
-  enable_cluster_creator_admin_permissions = true
-
-  access_entries = {
-    # One access entry with a policy associated
-    "ks-eks-${var.stage}" = {
-      kubernetes_groups = []
-      principal_arn     = "arn:aws:iam::123456789012:role/something"
-
-      policy_associations = {
-        "ks-eks-${var.stage}" = {
-          policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSViewPolicy"
-          access_scope = {
-            namespaces = ["default"]
-            type       = "namespace"
-          }
-        }
-      }
-    }
-  }
 
   tags = {
     Environment = "dev"
@@ -68,14 +72,7 @@ module "eks" {
 }
 
 
-
-
-
-
-
-
-
-
+## Below Module config is for Quick configu EKS Automode
 
 # module "eks" {
 #   source  = "terraform-aws-modules/eks/aws"

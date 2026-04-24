@@ -9,7 +9,8 @@ module "vpc" {
   private_subnets = var.vpc_private_subnets
   public_subnets  = var.vpc_public_subnets
 
-
+  ## Note since we already have public subnets define above, vpc module itself will create internet-gw and create route table associting with public subnets. 
+  ## Hence we dont need to create igw resouce separately
 
   enable_ipv6             = var.vpc_enable_ipv6
   map_public_ip_on_launch = var.map_public_ip_on_launch
@@ -39,8 +40,9 @@ module "vpc" {
 
   # Gateways
   enable_nat_gateway     = true
-  one_nat_gateway_per_az = true
-  enable_vpn_gateway     = false
+  single_nat_gateway     = true
+  one_nat_gateway_per_az = false ## Set it to true for production env. where high availability is require.
+  enable_vpn_gateway     = false ## Set it to true when you need Site-to-site vpn
 
 
   # VPC Flow Logs
